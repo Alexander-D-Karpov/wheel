@@ -106,6 +106,17 @@ p {
   color: var(--danger);
 }
 
+.icon-link {
+  display: inline-flex;
+  align-items: center;
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.icon-link:hover {
+  color: var(--text);
+}
+
 .container {
   max-width: 1080px;
   margin: 0 auto;
