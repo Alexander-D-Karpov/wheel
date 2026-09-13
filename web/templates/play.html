@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="robots" content="noindex">
+<title>{{.Title}}</title>
+<link rel="stylesheet" href="/static/app.css?v={{.AssetVersion}}">
+</head>
+<body data-slug="{{.Slug}}" data-base-url="{{.BaseURL}}">
+<header class="topbar">
+  <a class="brand" href="/">AWheel</a>
+  <span class="grow"></span>
+  <span id="viewers" class="notice">Viewers: 1</span>
+  <span id="connection" class="notice">connecting</span>
+</header>
+
+<main class="container split">
+  <section class="panel stack-center">
+    <h1 id="play-title" class="panel-title"></h1>
+    <div id="banner" class="banner is-hidden" role="status" aria-live="polite"></div>
+
+    <div class="wheel-frame">
+      <canvas id="canvas" aria-label="Wheel"></canvas>
+      <div class="pointer" aria-hidden="true"></div>
+    </div>
+
+    <div id="owner-controls" class="controls is-hidden">
+      <button id="spin" class="primary wide" type="button">Spin</button>
+      <button id="reset" type="button">Reset session</button>
+    </div>
+
+    <div class="block">
+      <label class="label" for="share">Share this link</label>
+      <div class="controls">
+        <input id="share" type="text" readonly>
+        <button id="copy" type="button">Copy</button>
+      </div>
+      <p class="muted">Anyone who opens it watches the same spin at the same time. Only you can spin.</p>
+    </div>
+  </section>
+
+  <section class="panel">
+    <dl class="facts">
+      <dt>Mode</dt><dd id="fact-mode"></dd>
+      <dt>Spin time</dt><dd id="fact-seconds"></dd>
+      <dt>Round</dt><dd id="fact-round"></dd>
+    </dl>
+
+    <div class="block">
+      <span class="label">In play (<span id="active-count">0</span> of <span id="total-count">0</span>)</span>
+      <div id="entries" class="entries readonly"></div>
+    </div>
+
+    <div class="block">
+      <span class="label">History</span>
+      <ol id="history" class="history"></ol>
+    </div>
+  </section>
+</main>
+
+<script src="/static/common.js?v={{.AssetVersion}}"></script>
+<script src="/static/palette.js?v={{.AssetVersion}}"></script>
+<script src="/static/wheelview.js?v={{.AssetVersion}}"></script>
+<script src="/static/play.js?v={{.AssetVersion}}"></script>
+</body>
+</html>

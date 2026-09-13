@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>{{.Title}}</title>
+<link rel="stylesheet" href="/static/app.css?v={{.AssetVersion}}">
+</head>
+<body data-wheel-id="{{.WheelID}}"
+      data-min-seconds="{{.MinSpinSeconds}}"
+      data-max-seconds="{{.MaxSpinSeconds}}"
+      data-max-entries="{{.MaxEntries}}">
+<header class="topbar">
+  <a class="brand" href="/">AWheel</a>
+  <span class="grow"></span>
+  <span id="notice" class="notice" role="status" aria-live="polite"></span>
+</header>
+
+<main class="container split">
+  <section class="panel">
+    <label class="label" for="title">Name</label>
+    <input id="title" class="title-field" type="text" maxlength="120" placeholder="Wheel name" autocomplete="off">
+
+    <fieldset class="block">
+      <legend class="label">Mode</legend>
+      <label class="choice">
+        <input type="radio" name="mode" value="selection">
+        <span>
+          <strong>Selection</strong>
+          <small>Each spin names a winner. Nothing is removed, so you can keep spinning.</small>
+        </span>
+      </label>
+      <label class="choice">
+        <input type="radio" name="mode" value="exclusion">
+        <span>
+          <strong>Exclusion</strong>
+          <small>Each spin knocks the picked entry out. Spin until one entry is left, and that one wins.</small>
+        </span>
+      </label>
+    </fieldset>
+
+    <div class="block">
+      <label class="label" for="spin-seconds">Spin time</label>
+      <div class="controls">
+        <input id="spin-seconds" type="range" min="{{.MinSpinSeconds}}" max="60" step="1" value="{{.DefaultSpinSeconds}}">
+        <input id="spin-seconds-value" class="narrow" type="number"
+               min="{{.MinSpinSeconds}}" max="{{.MaxSpinSeconds}}" step="1" value="{{.DefaultSpinSeconds}}"
+               aria-label="Spin time in seconds">
+        <span class="muted">seconds</span>
+      </div>
+    </div>
+
+    <div class="block">
+      <label class="label" for="entry-label">Add an entry</label>
+      <div class="controls">
+        <input id="entry-label" type="text" placeholder="Entry name" maxlength="120" autocomplete="off">
+        <input id="entry-weight" class="narrow" type="number" min="0.01" step="0.01" value="1" aria-label="Weight">
+        <button id="add-entry" class="primary" type="button">Add</button>
+      </div>
+      <details class="block">
+        <summary>Add many at once</summary>
+        <p class="muted">One entry per line. Put a weight after a vertical bar to change the odds.</p>
+        <textarea id="bulk" rows="5" spellcheck="false" placeholder="Alice&#10;Bob | 3&#10;Charlie | 0.5"></textarea>
+        <button id="add-bulk" type="button">Add all lines</button>
+      </details>
+    </div>
+
+    <div class="block">
+      <div class="row-between">
+        <span class="label">Entries in the wheel (<span id="selected-count">0</span> of <span id="entry-count">0</span> selected)</span>
+        <span class="muted">
+          <button id="select-all" class="link" type="button">select all</button>
+          <button id="select-none" class="link" type="button">none</button>
+        </span>
+      </div>
+      <div id="entries" class="entries"></div>
+      <p class="muted">Only ticked entries go into the play session. Weight sets how large a slice is.</p>
+    </div>
+
+    <div class="controls">
+      <button id="start" class="primary wide" type="button">Start play session</button>
+      <button id="delete" class="danger" type="button">Delete wheel</button>
+    </div>
+  </section>
+
+  <section class="panel stack-center">
+    <h2 class="panel-title">Preview</h2>
+    <div class="wheel-frame">
+      <canvas id="canvas" aria-label="Wheel preview"></canvas>
+      <div class="pointer" aria-hidden="true"></div>
+    </div>
+    <p class="muted">The ticked entries, drawn in the order they will appear.</p>
+  </section>
+</main>
+
+<script src="/static/common.js?v={{.AssetVersion}}"></script>
+<script src="/static/palette.js?v={{.AssetVersion}}"></script>
+<script src="/static/wheelview.js?v={{.AssetVersion}}"></script>
+<script src="/static/editor.js?v={{.AssetVersion}}"></script>
+</body>
+</html>

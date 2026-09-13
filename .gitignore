@@ -1,0 +1,13 @@
+/bin/
+/wheel
+
+.env
+*.env
+!.env.example
+
+*.log
+
+.claude/
+.idea/
+.vscode/
+.DS_Store

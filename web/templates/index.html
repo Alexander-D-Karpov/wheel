@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>{{.Title}}</title>
+<link rel="stylesheet" href="/static/app.css?v={{.AssetVersion}}">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="/">AWheel</a>
+  <span class="grow"></span>
+  <span id="notice" class="notice" role="status" aria-live="polite"></span>
+</header>
+
+<main class="container">
+  <section class="panel">
+    <h1>Your wheels</h1>
+    <p class="muted">
+      Wheels are tied to this browser by a cookie, so there is nothing to sign in to.
+      Clearing site data loses them.
+    </p>
+    <div class="controls">
+      <input id="new-title" type="text" placeholder="Wheel name" maxlength="120" autocomplete="off">
+      <button id="create" class="primary" type="button">Create wheel</button>
+    </div>
+  </section>
+
+  <section id="wheel-list" class="tiles" aria-live="polite"></section>
+</main>
+
+<script src="/static/common.js?v={{.AssetVersion}}"></script>
+<script src="/static/index.js?v={{.AssetVersion}}"></script>
+</body>
+</html>

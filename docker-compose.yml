@@ -1,0 +1,30 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: wheel
+      POSTGRES_PASSWORD: wheel
+      POSTGRES_DB: wheel
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U wheel"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  app:
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      ADDR: ":8080"
+      DATABASE_URL: postgres://wheel:wheel@db:5432/wheel?sslmode=disable
+      COOKIE_SECURE: "false"
+      LOG_FORMAT: json
+    ports:
+      - "8080:8080"
+
+volumes:
+  db-data:
