@@ -1,5 +1,7 @@
 BINARY := bin/wheel
 PKG    := ./cmd/wheel
+# Dependencies are vendored, so vendor/ is not ours to reformat.
+GOFMT_DIRS := cmd internal web
 
 .PHONY: help build run test vet fmt check tidy clean docker-up docker-down
 
@@ -23,10 +25,10 @@ vet:
 	go vet ./...
 
 fmt:
-	gofmt -w .
+	gofmt -w $(GOFMT_DIRS)
 
 check:
-	@test -z "$$(gofmt -l . )" || { echo "gofmt needed:"; gofmt -l .; exit 1; }
+	@test -z "$$(gofmt -l $(GOFMT_DIRS))" || { echo "gofmt needed:"; gofmt -l $(GOFMT_DIRS); exit 1; }
 	go vet ./...
 	go test ./...
 

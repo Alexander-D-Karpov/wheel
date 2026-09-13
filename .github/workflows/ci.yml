@@ -22,12 +22,17 @@ jobs:
 
       - name: gofmt
         run: |
-          unformatted=$(gofmt -l .)
+          unformatted=$(gofmt -l cmd internal web)
           if [ -n "$unformatted" ]; then
             echo "these files need gofmt:"
             echo "$unformatted"
             exit 1
           fi
+
+      - name: vendor is in sync
+        run: |
+          go mod vendor
+          git diff --exit-code --stat vendor go.mod go.sum
 
       - name: go vet
         run: go vet ./...

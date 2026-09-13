@@ -30,7 +30,8 @@ Live at [wheel.akarpov.ru](https://wheel.akarpov.ru).
 
 ## Run it
 
-Needs Go 1.22+ and PostgreSQL.
+Needs Go 1.22+ and PostgreSQL. Dependencies are vendored, so building never
+touches the network.
 
 ```sh
 createdb wheel
